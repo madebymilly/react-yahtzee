@@ -10,11 +10,15 @@ class RuleRow extends Component {
   }
 
   render() {
-    const ruleRowClass = (this.props.score) ? 'RuleRow-disabled' : 'RuleRow-active'
+    const { score, name, getDescription } = this.props;
+
+    const ruleRowClass = (score) ? 'RuleRow-disabled' : 'RuleRow-active';
+    console.log(score)
+    const ruleRowText = (score) ? score : this.props.description;
     return (
       <tr className={`RuleRow ${ruleRowClass}`} onClick={this.handleClick}>
-        <td className="RuleRow-name">{this.props.name}</td>
-        <td className="RuleRow-score">{this.props.score}</td>
+        <td className="RuleRow-name">{name}</td>
+        <td className="RuleRow-score">{ruleRowText}</td>
       </tr>
     )
   }

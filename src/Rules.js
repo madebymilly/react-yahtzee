@@ -41,6 +41,9 @@ class TotalOneNumber extends Rule {
   evalRoll = dice => {
     return this.val * this.count(dice, this.val);
   };
+  getDescription = () => {
+    return (this.val === 1) ? `${this.val} point per ${this.val}` : `${this.val} points per ${this.val}`;
+  }
 }
 
 /** Given a required # of same dice, return sum of all dice.
@@ -53,6 +56,9 @@ class SumDistro extends Rule {
     // do any of the counts meet of exceed this distro?
     return this.freq(dice).some(c => c >= this.count) ? this.sum(dice) : 0;
   };
+  getDescription = () => {
+    return `Sum of all Dice`;
+  }
 }
 
 /** Check if full house (3-of-kind and 2-of-kind) */
@@ -62,6 +68,9 @@ class FullHouse extends Rule {
     const freqs = this.freq( dice );
     return (freqs.includes(2) && freqs.includes(3)) ? this.score : 0;
   }
+  getDescription = () => {
+    return `${this.score} points for a FullHouse`;
+  }
 }
 
 /** Check for small straights. */
@@ -69,26 +78,15 @@ class FullHouse extends Rule {
 class SmallStraight extends Rule {
   evalRoll = dice => {
     const d = new Set(dice);
-    
-    // if ( d.has(1) && d.has(2) && d.has(3) && d.has(4) ) {
-    //   return this.score
-    // } else if ( d.has(2) && d.has(3) && d.has(4) && d.has(5) ) {
-    //   return this.score
-    // } else if ( d.has(3) && d.has(4) && d.has(5) && d.has(6) ) {
-    //   return this.score
-    // } else {
-    //   return 0;
-    // }
-
     if ( ( d.has(1) && d.has(2) && d.has(3) && d.has(4) ) || ( d.has(2) && d.has(3) && d.has(4) && d.has(5) ) || ( d.has(3) && d.has(4) && d.has(5) && d.has(6) ) ) {
-      console.log('small straight', this.score)
       return this.score;
     } else {
-      console.log('0')
       return 0;
     }
-    
   };
+  getDescription = () => {
+    return `${this.score} points for a small straight`;
+  }
 }
 
 /** Check for large straights. */
@@ -100,6 +98,9 @@ class LargeStraight extends Rule {
     // large straight must be 5 different dice & only one can be a 1 or a 6
     return d.size === 5 && (!d.has(1) || !d.has(6)) ? this.score : 0;
   };
+  getDescription = () => {
+    return `${this.score} points for a large straight`;
+  }
 }
 
 /** Check if all dice are same. */
@@ -109,6 +110,9 @@ class Yahtzee extends Rule {
     // all dice must be the same
     return this.freq(dice)[0] === 5 ? this.score : 0;
   };
+  getDescription = () => {
+    return `${this.score} points for yahtzee`;
+  }
 }
 
 // ones, twos, etc score as sum of that value
