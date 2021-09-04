@@ -81,8 +81,8 @@ class Game extends Component {
       rollsLeft: NUM_ROLLS,
       locked: Array(NUM_DICE).fill(false)
     }));
-    this.roll();
-    //this.animateRoll();
+    //this.roll();
+    this.animateRoll();
   }
 
   render() {
