@@ -10,13 +10,7 @@ class Die extends Component {
 
   constructor(props) {
     super(props)
-  
-    this.state = {
-       
-    }
-
     this.handleClick = this.handleClick.bind(this);
-    
   }
   
   handleClick() {
@@ -24,11 +18,12 @@ class Die extends Component {
   }
 
   render() {
-    const lockedClass = this.props.locked ? 'Die-locked' : '';
-    const rollingClass = (this.props.rolling) ? 'Die-rolling' : '';
+    const { locked, rolling, val} = this.props;
+    const lockedClass = locked ? 'Die-locked' : '';
+    const rollingClass = rolling ? 'Die-rolling' : '';
     return (
       <i
-        className={`Die fas fa-4x fa-dice-${this.props.dieFaces[this.props.val-1]} ${lockedClass} ${rollingClass}`}
+        className={`Die fas fa-4x fa-dice-${this.props.dieFaces[val-1]} ${lockedClass} ${rollingClass}`}
         onClick={this.handleClick}
       >
       </i>
