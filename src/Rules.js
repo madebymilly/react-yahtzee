@@ -59,20 +59,35 @@ class SumDistro extends Rule {
 
 class FullHouse extends Rule {
   evalRoll = dice => {
-    console.log(this.freq(dice));
-    return (this.freq(dice).includes(2) && this.freq(dice).includes(3)) ? this.score : 0;
+    const freqs = this.freq( dice );
+    return (freqs.includes(2) && freqs.includes(3)) ? this.score : 0;
   }
 }
 
 /** Check for small straights. */
-
-class SmallStraight {
+// 1,2,3,4 / 2,3,4,5 / 3,4,5,6
+class SmallStraight extends Rule {
   evalRoll = dice => {
     const d = new Set(dice);
-    console.log(d)
+    
+    // if ( d.has(1) && d.has(2) && d.has(3) && d.has(4) ) {
+    //   return this.score
+    // } else if ( d.has(2) && d.has(3) && d.has(4) && d.has(5) ) {
+    //   return this.score
+    // } else if ( d.has(3) && d.has(4) && d.has(5) && d.has(6) ) {
+    //   return this.score
+    // } else {
+    //   return 0;
+    // }
 
-    // small straight must be 4 different dice & only two can be a 1 or a 6
-    return d.size >= 4 && (!d.has(1) || !d.has(6)) ? this.score : 0;
+    if ( ( d.has(1) && d.has(2) && d.has(3) && d.has(4) ) || ( d.has(2) && d.has(3) && d.has(4) && d.has(5) ) || ( d.has(3) && d.has(4) && d.has(5) && d.has(6) ) ) {
+      console.log('small straight', this.score)
+      return this.score;
+    } else {
+      console.log('0')
+      return 0;
+    }
+    
   };
 }
 
